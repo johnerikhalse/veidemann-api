@@ -2,11 +2,8 @@ syntax = "proto3";
 
 package veidemann.api.browsercontroller.v1;
 
-import "commons/v1/resources.proto";
 import "config/v1/resources.proto";
 import "frontier/v1/resources.proto";
-import "google/api/annotations.proto";
-import "protoc-gen-swagger/options/annotations.proto";
 
 option go_package = "github.com/nlnwa/veidemann-api-go/browsercontroller/v1;browsercontroller";
 option java_multiple_files = true;

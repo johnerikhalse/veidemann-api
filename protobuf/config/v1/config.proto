@@ -4,80 +4,33 @@ package veidemann.api.config.v1;
 
 import "config/v1/resources.proto";
 import "commons/v1/resources.proto";
-import "google/api/annotations.proto";
-import "protoc-gen-swagger/options/annotations.proto";
+import "google/protobuf/empty.proto";
 
 option go_package = "github.com/nlnwa/veidemann-api-go/config/v1;config";
 option java_multiple_files = true;
 option java_package = "no.nb.nna.veidemann.api.config.v1";
 option java_outer_classname = "ConfigService";
 
-option (grpc.gateway.protoc_gen_swagger.options.openapiv2_swagger) = {
-  info: {
-    title: "Veidemann Config API"
-    version: "1.0.0"
-    contact: {
-      name: "Veidemann"
-      url: "https://github.com/nlnwa/veidemann-api"
-    }
-  }
-  schemes: [
-    HTTP, HTTPS, WS, WSS
-  ];
-};
-
 // Service for working with config.
 service Config {
     // Get a config object by ID
-    rpc GetConfigObject (veidemann.api.config.v1.ConfigRef) returns (veidemann.api.config.v1.ConfigObject) {
-        option (google.api.http) = {
-            get: "/api/config/{kind}/{id}"
-        };
-    }
+    rpc GetConfigObject (veidemann.api.config.v1.ConfigRef) returns (veidemann.api.config.v1.ConfigObject) {}
     // List a set of config objects
-    rpc ListConfigObjects (veidemann.api.config.v1.ListRequest) returns (stream veidemann.api.config.v1.ConfigObject) {
-        option (google.api.http) = {
-            get: "/api/config/{kind}"
-            body: "*"
-        };
-    }
+    rpc ListConfigObjects (veidemann.api.config.v1.ListRequest) returns (stream veidemann.api.config.v1.ConfigObject) {}
     // Count config objects
-    rpc CountConfigObjects (veidemann.api.config.v1.ListRequest) returns (veidemann.api.config.v1.ListCountResponse) {
-        option (google.api.http) = {
-            get: "/api/config/{kind}/count"
-            body: "*"
-        };
-    }
+    rpc CountConfigObjects (veidemann.api.config.v1.ListRequest) returns (veidemann.api.config.v1.ListCountResponse) {}
     // Save a config object
-    rpc SaveConfigObject (veidemann.api.config.v1.ConfigObject) returns (veidemann.api.config.v1.ConfigObject) {
-        option (google.api.http) = {
-            put: "/api/config/{kind}"
-            body: "*"
-            additional_bindings {
-                post: "/api/config/{kind}/{id}"
-				body: "*"
-			}
-        };
-    }
+    rpc SaveConfigObject (veidemann.api.config.v1.ConfigObject) returns (veidemann.api.config.v1.ConfigObject) {}
     // Update config objects
-    rpc UpdateConfigObjects (veidemann.api.config.v1.UpdateRequest) returns (veidemann.api.config.v1.UpdateResponse) {
-        option (google.api.http) = {
-            patch: "/api/config/{kind}"
-            body: "*"
-        };
-    }
+    rpc UpdateConfigObjects (veidemann.api.config.v1.UpdateRequest) returns (veidemann.api.config.v1.UpdateResponse) {}
     // Delete a config object
-    rpc DeleteConfigObject (veidemann.api.config.v1.ConfigObject) returns (veidemann.api.config.v1.DeleteResponse) {
-        option (google.api.http) = {
-            delete: "/api/config/{kind}/{id}"
-        };
-    }
+    rpc DeleteConfigObject (veidemann.api.config.v1.ConfigObject) returns (veidemann.api.config.v1.DeleteResponse) {}
 
-    rpc GetLabelKeys (veidemann.api.config.v1.GetLabelKeysRequest) returns (veidemann.api.config.v1.LabelKeysResponse) {
-        option (google.api.http) = {
-            delete: "/api/config/{kind}/labelkeys"
-        };
-    }
+    rpc GetLabelKeys (veidemann.api.config.v1.GetLabelKeysRequest) returns (veidemann.api.config.v1.LabelKeysResponse) {}
+
+    rpc GetLogConfig (google.protobuf.Empty) returns (LogLevels) {}
+
+    rpc SaveLogConfig (LogLevels) returns (LogLevels) {}
 }
 
 message GetLabelKeysRequest {

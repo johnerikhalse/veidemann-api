@@ -280,3 +280,22 @@ message Collection {
     int64 file_size = 4;
     repeated SubCollection sub_collections = 10;
 }
+
+message LogLevels {
+    enum Level {
+        UNDEFINED = 0;
+        ALL = 1;
+        TRACE = 2;
+        DEBUG = 3;
+        INFO = 4;
+        WARN = 5;
+        ERROR = 6;
+        FATAL = 7;
+        OFF = 8;
+    }
+    message LogLevel {
+        string logger = 1;
+        Level level = 2;
+    }
+    repeated LogLevel log_level = 1;
+}

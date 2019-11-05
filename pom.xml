@@ -14,9 +14,8 @@
         <maven.compiler.source>1.8</maven.compiler.source>
         <maven.compiler.target>1.8</maven.compiler.target>
 
-        <io.grpc.version>1.20.0</io.grpc.version>
-        <io.grpc.protoc-gen-grpc-java.version>1.20.0</io.grpc.protoc-gen-grpc-java.version>
-        <com.google.protobuf.protoc.version>3.7.1</com.google.protobuf.protoc.version>
+        <io.grpc.version>1.24.1</io.grpc.version>
+        <com.google.protobuf.protoc.version>3.10.0</com.google.protobuf.protoc.version>
     </properties>
 
     <dependencies>
@@ -34,6 +33,11 @@
             <groupId>io.grpc</groupId>
             <artifactId>grpc-stub</artifactId>
             <version>${io.grpc.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>com.google.protobuf</groupId>
+            <artifactId>protobuf-java</artifactId>
+            <version>${com.google.protobuf.protoc.version}</version>
         </dependency>
         <dependency>
             <groupId>com.google.protobuf</groupId>
@@ -61,23 +65,6 @@
                 <version>0.6.1</version>
                 <executions>
                     <execution>
-                        <id>swagger</id>
-                        <goals>
-                            <goal>compile</goal>
-                        </goals>
-                        <configuration>
-                            <protoSourceRoot>
-                                ${basedir}/include
-                            </protoSourceRoot>
-                            <includes>
-                                <include>protoc-gen-swagger/options/*</include>
-                            </includes>
-                            <protocArtifact>
-                                com.google.protobuf:protoc:${com.google.protobuf.protoc.version}:exe:${os.detected.classifier}
-                            </protocArtifact>
-                        </configuration>
-                    </execution>
-                    <execution>
                         <id>java</id>
                         <goals>
                             <goal>compile</goal>
@@ -88,17 +75,12 @@
                             <protoSourceRoot>
                                 ${basedir}/protobuf
                             </protoSourceRoot>
-                            <additionalProtoPathElements>
-                                <additionalProtoPathElement>
-                                    ${basedir}/include
-                                </additionalProtoPathElement>
-                            </additionalProtoPathElements>
                             <protocArtifact>
                                 com.google.protobuf:protoc:${com.google.protobuf.protoc.version}:exe:${os.detected.classifier}
                             </protocArtifact>
                             <pluginId>grpc-java</pluginId>
                             <pluginArtifact>
-                                io.grpc:protoc-gen-grpc-java:${io.grpc.protoc-gen-grpc-java.version}:exe:${os.detected.classifier}
+                                io.grpc:protoc-gen-grpc-java:${io.grpc.version}:exe:${os.detected.classifier}
                             </pluginArtifact>
                         </configuration>
                     </execution>

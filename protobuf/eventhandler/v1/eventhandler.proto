@@ -4,71 +4,26 @@ package veidemann.api.eventhandler.v1;
 
 import "eventhandler/v1/resources.proto";
 import "commons/v1/resources.proto";
-import "google/api/annotations.proto";
-import "protoc-gen-swagger/options/annotations.proto";
 
 option go_package = "github.com/nlnwa/veidemann-api-go/eventhandler/v1;eventhandler";
 option java_multiple_files = true;
 option java_package = "no.nb.nna.veidemann.api.eventhandler.v1";
 option java_outer_classname = "EventHandlerService";
 
-option (grpc.gateway.protoc_gen_swagger.options.openapiv2_swagger) = {
-  info: {
-    title: "Veidemann Event Handler API"
-    version: "1.0.0"
-    contact: {
-      name: "Veidemann"
-      url: "https://github.com/nlnwa/veidemann-api"
-    }
-  }
-  schemes: [
-    HTTP, HTTPS, WS, WSS
-  ];
-};
-
 // Service for working with events.
-
 service EventHandler {
     // Get an event object by ID
-    rpc GetEventObject (veidemann.api.eventhandler.v1.EventRef) returns (veidemann.api.eventhandler.v1.EventObject) {
-        option (google.api.http) = {
-            get: "/api/event/{id}"
-        };
-    }
+    rpc GetEventObject (veidemann.api.eventhandler.v1.EventRef) returns (veidemann.api.eventhandler.v1.EventObject) {}
     // List a set of event objects
-    rpc ListEventObjects (veidemann.api.eventhandler.v1.ListRequest) returns (stream veidemann.api.eventhandler.v1.EventObject) {
-        option (google.api.http) = {
-            get: "/api/event/"
-            body: "*"
-        };
-    }
+    rpc ListEventObjects (veidemann.api.eventhandler.v1.ListRequest) returns (stream veidemann.api.eventhandler.v1.EventObject) {}
     // Count event objects
-    rpc CountEventObjects (veidemann.api.eventhandler.v1.ListRequest) returns (veidemann.api.eventhandler.v1.ListCountResponse) {
-        option (google.api.http) = {
-            get: "/api/event/count"
-            body: "*"
-        };
-    }
+    rpc CountEventObjects (veidemann.api.eventhandler.v1.ListRequest) returns (veidemann.api.eventhandler.v1.ListCountResponse) {}
     // Save an event object
-    rpc SaveEventObject (veidemann.api.eventhandler.v1.SaveRequest) returns (veidemann.api.eventhandler.v1.EventObject) {
-        option (google.api.http) = {
-            get: "/api/event/{id}"
-            body: "*"
-        };
-    }
+    rpc SaveEventObject (veidemann.api.eventhandler.v1.SaveRequest) returns (veidemann.api.eventhandler.v1.EventObject) {}
     // Update event objects
-    rpc UpdateEventObjects (veidemann.api.eventhandler.v1.UpdateRequest) returns (veidemann.api.eventhandler.v1.UpdateResponse) {
-        option (google.api.http) = {
-            patch: "/api/event/"
-            body: "*"
-        };
-    }
+    rpc UpdateEventObjects (veidemann.api.eventhandler.v1.UpdateRequest) returns (veidemann.api.eventhandler.v1.UpdateResponse) {}
     // Delete an event object
-    rpc DeleteEventObject (veidemann.api.eventhandler.v1.EventObject) returns (veidemann.api.eventhandler.v1.DeleteResponse) {
-        option (google.api.http) = {
-            delete: "/api/event/{id}"
-        };
-    }
+    rpc DeleteEventObject (veidemann.api.eventhandler.v1.EventObject) returns (veidemann.api.eventhandler.v1.DeleteResponse) {}
 
     rpc ListLabels (ListLabelRequest) returns (ListLabelResponse);
 }

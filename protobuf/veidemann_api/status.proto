@@ -7,73 +7,22 @@ option java_outer_classname = "StatusProto";
 
 import "frontier/v1/resources.proto";
 import "google/protobuf/timestamp.proto";
-import "google/api/annotations.proto";
-import "protoc-gen-swagger/options/annotations.proto";
-
-option (grpc.gateway.protoc_gen_swagger.options.openapiv2_swagger) = {
-  info: {
-    title: "Veidemann Controller API"
-    version: "0.2.0"
-    contact: {
-        name: "Veidemann"
-        url: "https://github.com/nlnwa"
-    }
-  }
-  schemes: HTTP
-  schemes: HTTPS
-  schemes: WS
-  schemes: WSS
-};
 
 // Service for crawler status.
 service Status {
     // Get status of running crawls
-    rpc GetRunningExecutions (RunningExecutionsRequest) returns (stream RunningExecutionsListReply) {
-        option (google.api.http) = {
-            get: "/api/status/executions"
-        };
-    }
+    rpc GetRunningExecutions (RunningExecutionsRequest) returns (stream RunningExecutionsListReply) {}
 
     // Get a crawl execution by ID
-    rpc GetExecution (ExecutionId) returns (veidemann.api.frontier.v1.CrawlExecutionStatus) {
-        option (google.api.http) = {
-            get: "/api/status/seed/executions/{id}"
-        };
-    }
+    rpc GetExecution (ExecutionId) returns (veidemann.api.frontier.v1.CrawlExecutionStatus) {}
     // List a set of crawl executions
-    rpc ListExecutions (ListExecutionsRequest) returns (ExecutionsListReply) {
-        option (google.api.http) = {
-            get: "/api/status/seed/executions"
-        };
-    }
-    // Abort a crawl execution
-    rpc AbortExecution (ExecutionId) returns (veidemann.api.frontier.v1.CrawlExecutionStatus) {
-        option (google.api.http) = {
-            post: "/api/status/seed/executions/{id}/abort"
-            body: "*"
-        };
-    }
+    rpc ListExecutions (ListExecutionsRequest) returns (ExecutionsListReply) {}
 
 
     // Get a job execution by ID
-    rpc GetJobExecution (ExecutionId) returns (veidemann.api.frontier.v1.JobExecutionStatus) {
-        option (google.api.http) = {
-            get: "/api/status/job/executions/{id}"
-        };
-    }
+    rpc GetJobExecution (ExecutionId) returns (veidemann.api.frontier.v1.JobExecutionStatus) {}
     // List a set of job executions
-    rpc ListJobExecutions (ListJobExecutionsRequest) returns (JobExecutionsListReply) {
-        option (google.api.http) = {
-            get: "/api/status/job/executions"
-        };
-    }
-    // Abort a job execution
-    rpc AbortJobExecution (ExecutionId) returns (veidemann.api.frontier.v1.JobExecutionStatus) {
-        option (google.api.http) = {
-            post: "/api/status/job/executions/{id}/abort"
-            body: "*"
-        };
-    }
+    rpc ListJobExecutions (ListJobExecutionsRequest) returns (JobExecutionsListReply) {}
 
 }
 

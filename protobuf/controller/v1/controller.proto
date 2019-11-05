@@ -1,0 +1,50 @@
+syntax = "proto3";
+
+package veidemann.api.controller.v1;
+
+import "controller/v1/resources.proto";
+import "frontier/v1/resources.proto";
+import "config/v1/resources.proto";
+import "google/protobuf/empty.proto";
+
+option go_package = "github.com/nlnwa/veidemann-api-go/controller/v1;controller";
+option java_multiple_files = true;
+option java_package = "no.nb.nna.veidemann.api.controller.v1";
+option java_outer_classname = "ControllerService";
+
+// Service for communicating with controller.
+service Controller {
+    rpc GetRolesForActiveUser (google.protobuf.Empty) returns (RoleList) {}
+
+    rpc RunCrawl (RunCrawlRequest) returns (RunCrawlReply) {}
+
+    // Abort a crawl execution
+    rpc AbortCrawlExecution (ExecutionId) returns (veidemann.api.frontier.v1.CrawlExecutionStatus) {}
+
+    // Abort a job execution
+    rpc AbortJobExecution (ExecutionId) returns (veidemann.api.frontier.v1.JobExecutionStatus) {}
+
+    // Get the configured OpenID connect issuer address
+    rpc GetOpenIdConnectIssuer (google.protobuf.Empty) returns (OpenIdConnectIssuerReply) {}
+}
+
+// Kick of a crawl job immediately
+// If a job is already running for this job_id, then new seeds are added to the job instead of starting a new one.
+message RunCrawlRequest {
+    string job_id = 5;
+    // If seed id is submitted, only this seed will be harvested.
+    // If empty, all seeds configured with the submitted job id will be harvested.
+    string seed_id = 6;
+}
+
+message RunCrawlReply {
+    string job_execution_id = 1;
+}
+
+message RoleList {
+    repeated config.v1.Role role = 1;
+}
+
+message OpenIdConnectIssuerReply {
+    string open_id_connect_issuer = 1;
+}

@@ -7,50 +7,17 @@ option java_outer_classname = "ReportProto";
 
 import "frontier/v1/resources.proto";
 import "veidemann_api/messages.proto";
-import "google/api/annotations.proto";
-import "protoc-gen-swagger/options/annotations.proto";
-
-option (grpc.gateway.protoc_gen_swagger.options.openapiv2_swagger) = {
-  info: {
-    title: "Veidemann Controller API"
-    version: "0.2.0"
-    contact: {
-        name: "Veidemann"
-        url: "https://github.com/nlnwa"
-    }
-  }
-  schemes: HTTP
-  schemes: HTTPS
-  schemes: WS
-  schemes: WSS
-};
 
 // Service for crawler reports.
 service Report {
     // List crawl logs
-    rpc ListCrawlLogs (CrawlLogListRequest) returns (CrawlLogListReply) {
-        option (google.api.http) = {
-            get: "/api/report/crawllogs"
-        };
-    }
+    rpc ListCrawlLogs (CrawlLogListRequest) returns (CrawlLogListReply) {}
     // List page logs
-    rpc ListPageLogs (PageLogListRequest) returns (PageLogListReply) {
-        option (google.api.http) = {
-            get: "/api/report/pagelogs"
-        };
-    }
+    rpc ListPageLogs (PageLogListRequest) returns (PageLogListReply) {}
     // List screenshots
-    rpc ListScreenshots (ScreenshotListRequest) returns (ScreenshotListReply) {
-        option (google.api.http) = {
-            get: "/api/report/screenshots"
-        };
-    }
+    rpc ListScreenshots (ScreenshotListRequest) returns (ScreenshotListReply) {}
     // Execute a query against the database
-    rpc ExecuteDbQuery (ExecuteDbQueryRequest) returns (stream ExecuteDbQueryReply) {
-        option (google.api.http) = {
-            get: "/api/report/dbquery"
-        };
-    }
+    rpc ExecuteDbQuery (ExecuteDbQueryRequest) returns (stream ExecuteDbQueryReply) {}
 }
 
 message Filter {
