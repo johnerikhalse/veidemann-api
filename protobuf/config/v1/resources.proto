@@ -249,7 +249,7 @@ enum Role {
 
 message ApiKey {
     string api_key=1;
-    google.protobuf.Duration validTime=2;
+    google.protobuf.Timestamp validUntil=2;
 }
 
 message RoleMapping {

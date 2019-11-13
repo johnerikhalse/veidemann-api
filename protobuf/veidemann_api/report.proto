@@ -14,8 +14,6 @@ service Report {
     rpc ListCrawlLogs (CrawlLogListRequest) returns (CrawlLogListReply) {}
     // List page logs
     rpc ListPageLogs (PageLogListRequest) returns (PageLogListReply) {}
-    // List screenshots
-    rpc ListScreenshots (ScreenshotListRequest) returns (ScreenshotListReply) {}
     // Execute a query against the database
     rpc ExecuteDbQuery (ExecuteDbQueryRequest) returns (stream ExecuteDbQueryReply) {}
 }
@@ -58,22 +56,6 @@ message PageLogListRequest {
 
 message PageLogListReply {
     repeated veidemann.api.frontier.v1.PageLog value = 1;
-    int64 count = 2;
-    int32 page_size = 14;
-    int32 page = 15;
-}
-
-message ScreenshotListRequest {
-    repeated string id = 1;
-    string execution_id = 2;
-    repeated Filter filter = 3;
-    bool img_data = 4;
-    int32 page_size = 14;
-    int32 page = 15;
-}
-
-message ScreenshotListReply {
-    repeated Screenshot value = 1;
     int64 count = 2;
     int32 page_size = 14;
     int32 page = 15;
