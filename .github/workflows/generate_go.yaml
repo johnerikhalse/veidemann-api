@@ -10,25 +10,32 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - env:
-          EVENT_CONTEXT: ${{ toJSON(github.event) }}
-        run: |
-          echo $EVENT_CONTEXT
+      - run: |
           echo ${{ toJSON(github.event.release.tag_name) }}
           echo ${{ toJSON(github.ref) }}
+          echo ${{ "go/$github.event.release.tag_name" }}
 
-#      - uses: actions/checkout@v3
-#        with:
-#          ref: ${{ github.head_ref }}
-#
-#      - name: Setup Go
-#        uses: actions/setup-go@v4
-#
-#      - name: Generate sources
-#        run: |
-#          PATH=/home/runner/go/bin:${PATH}
-#          make clean all
-#
-#      - uses: stefanzweifel/git-auto-commit-action@v4
-#        with:
-#          commit_message: Generate Golang source
+      - uses: actions/checkout@v3
+        with:
+          ref: ${{ github.head_ref }}
+
+      - name: Setup Go
+        uses: actions/setup-go@v4
+
+      - name: Generate sources
+        run: |
+          PATH=/home/runner/go/bin:${PATH}
+          make clean all
+
+      - uses: stefanzweifel/git-auto-commit-action@v4
+        name: Commit generated sources
+        with:
+          commit_message: Generate Golang source
+
+      - uses: rickstaa/action-create-tag@v1
+        name: Create tag
+        id: "tag_create"
+        with:
+          tag: "go/$github.event.release.tag_name"
+          tag_exists_error: false
+          message: "Latest release"
