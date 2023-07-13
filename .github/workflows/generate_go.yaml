@@ -13,7 +13,6 @@ jobs:
       - run: |
           echo ${{ toJSON(github.event.release.tag_name) }}
           echo ${{ toJSON(github.ref) }}
-          echo ${{ "go/$github.event.release.tag_name" }}
 
       - uses: actions/checkout@v3
         with:
@@ -28,14 +27,14 @@ jobs:
           make clean all
 
       - uses: stefanzweifel/git-auto-commit-action@v4
-        name: Commit generated sources
         with:
           commit_message: Generate Golang source
 
       - uses: rickstaa/action-create-tag@v1
-        name: Create tag
         id: "tag_create"
+        env:
+          TAG_NAME: ${{ 'go/' + github.event.release.tag_name }}
         with:
-          tag: "go/$github.event.release.tag_name"
+          tag: ${{ 'go/' + github.event.release.tag_name }}
           tag_exists_error: false
           message: "Latest release"
