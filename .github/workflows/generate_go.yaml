@@ -7,7 +7,7 @@ on:
 
 jobs:
   build:
-    if: !startsWith(github.event.release.tag_name, 'go/v')
+    if: startsWith(github.event.release.tag_name, 'go/v')
     runs-on: ubuntu-latest
 
     steps:
