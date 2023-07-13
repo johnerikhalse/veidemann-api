@@ -1,13 +1,13 @@
-name: Test generating sources
+name: Generate Go stubs
 
 on:
   release:
     types: [published]
-    tags-ignore:
-      - go/v*
 
 jobs:
   build:
+    name: Generate Go stubs
+    if: !startsWith(github.event.release.tag_name, 'go/v')
     runs-on: ubuntu-latest
 
     steps:
@@ -15,6 +15,7 @@ jobs:
           EVENT_CONTEXT: ${{ toJSON(github.event) }}
         run: |
           echo $EVENT_CONTEXT
+          echo ${{ toJSON(github.event.release.tag_name) }}
 
 #      - uses: actions/checkout@v3
 #        with:
