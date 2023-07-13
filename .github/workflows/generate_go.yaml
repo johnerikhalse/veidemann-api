@@ -29,8 +29,10 @@ jobs:
       - uses: stefanzweifel/git-auto-commit-action@v4
         with:
           commit_message: Generate Golang source
+          branch: master
+          tagging_message: ${{ format('go/{0}', github.event.release.tag_name) }}
 
-      - uses: rickstaa/action-create-tag@v1
-        id: "tag_create"
-        with:
-          tag: ${{ format('go/{0}', github.event.release.tag_name) }}
+#      - uses: rickstaa/action-create-tag@v1
+#        id: "tag_create"
+#        with:
+#          tag: ${{ format('go/{0}', github.event.release.tag_name) }}
