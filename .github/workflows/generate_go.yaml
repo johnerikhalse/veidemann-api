@@ -3,10 +3,10 @@ name: Generate Go stubs
 on:
   release:
     types: [published]
+  push:
 
 jobs:
   build:
-    name: Generate Go stubs
     if: !startsWith(github.event.release.tag_name, 'go/v')
     runs-on: ubuntu-latest
 
